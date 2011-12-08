@@ -457,6 +457,9 @@
                     /* https://bugzilla.mozilla.org/show_bug.cgi?id=236791 */
                     //input[0].setAttribute('autocomplete','off');
                     input.attr('autocomplete','off');
+                    if (settings.maxlength) {
+						input.attr('maxlength', settings.maxlength);
+                    }
                     $(this).append(input);
                     return(input);
                 }
