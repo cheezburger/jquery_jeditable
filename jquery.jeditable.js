@@ -176,6 +176,7 @@
 
                 /* Create the form object. */
                 var form = $('<form />');
+				form[0].isReset = false;
                 
                 /* Apply css or style or both. */
                 if (settings.cssclass) {
@@ -277,7 +278,9 @@
                     input.blur(function(e) {
                         /* Prevent double submit if submit was clicked. */
                         t = setTimeout(function() {
-                            form.submit();
+							if (!form[0].isReset) {
+								form.submit();
+							}
                         }, 200);
                     });
                 } else if ($.isFunction(settings.onblur)) {
@@ -378,6 +381,7 @@
                 if (this.editing) {
                     /* Before reset hook, if it returns false abort reseting. */
                     if (false !== onreset.apply(form, [settings, self])) { 
+						$("form", self)[0].isReset = true;
                         $(self).text(self.revert);
                         self.editing   = false;
                         if (!$.trim($(self).html())) {
